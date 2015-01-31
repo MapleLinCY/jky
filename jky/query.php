@@ -7,9 +7,8 @@
 		"page" => "user",
 		"type" => "Select"
 	);
+    $jsonString = json_encode($jsonString);
 */
-	$jsonString = json_encode($jsonString);
-
 
 	// 回傳訊息狀態
 	$status = "000";
@@ -48,25 +47,25 @@
 
                 switch ($data['page']){
                 case "delicacies":
-                    //$str = $sql_Instruction->getSQLDelicacies($data, $datetime);
+                    $str = $sql_Instruction->getSQLDelicacies($data, $datetime);
                     break;
                 case "delicacies_history":
-                    //$str = $sql_Instruction->getSQLDelicaciesHistory($data, $datetime);
+                    $str = $sql_Instruction->getSQLDelicaciesHistory($data, $datetime);
                     break;
                 case "delicacies_score":
-                    //$str = $sql_Instruction->getSQLDelicaciesScore($data, $datetime);
+                    $str = $sql_Instruction->getSQLDelicaciesScore($data, $datetime);
                     break;
                 case "room":
-                    //$str = $sql_Instruction->getSQLRoom($data, $datetime);
+                    $str = $sql_Instruction->getSQLRoom($data, $datetime);
                     break;
                 case "room_choice_delicacies":
-                    //$str = $sql_Instruction->getSQLRoomChoiceDelicacies($data, $datetime);
+                    $str = $sql_Instruction->getSQLRoomChoiceDelicacies($data, $datetime);
                     break;
                 case "room_choice_eattime":
-                    //$str = $sql_Instruction->getSQLRoomChoiceEattime($data, $datetime);
+                    $str = $sql_Instruction->getSQLRoomChoiceEattime($data, $datetime);
                     break;
                 case "room_choice_point":
-                    //$str = $sql_Instruction->getSQLRoomChoicePoint($data, $datetime);
+                    $str = $sql_Instruction->getSQLRoomChoicePoint($data, $datetime);
                     break;
                 case "user":
                     $str = $sql_Instruction->getSQLUser($data, $datetime);
@@ -101,8 +100,8 @@
                                         "d_OpenTime" => $arr[$index]['d_OpenTime'],
                                         "d_CloseTime" => $arr[$index]['d_CloseTime'],
                                         "d_Address" => $arr[$index]['d_Address'],
-                                        "d_statement" => $arr[$index]['d_statement'],
-                                        "d_OpenTime" => $arr[$index]['d_OpenTime'],
+                                        "d_Statement" => $arr[$index]['d_Statement'],
+                                        "d_CreateUser" => $arr[$index]['d_CreateUser'],
                                         "d_CreateTime" => $arr[$index]['d_CreateTime']
                                     );
                                     $status = "201";
@@ -200,7 +199,7 @@
                         //---------------------------------------
 					}else{
 						$status = "100";
-						$value = $data['type']. "Operation Success";
+						$value = $data['type']. " Operation Success";
 					}
 				}else{
 					$status = "101";

@@ -1,28 +1,130 @@
 <?
 class SQLInstruction{
 
-    pubic function getSQLDelicacies($data){
+    public function getSQLDelicacies($data, $datetime){
         switch ($data['type']){
         case "Insert":
             return "INSERT INTO jky_delicacies (d_No, d_Name, d_Phone, d_LowPrice, d_HighPrice, d_OpenTime, d_CloseTime, d_Address, d_Statement, d_CreateUser, d_CreateTime)
-					VALUES (NULL,'".$data['new_romTitle']."','1','".$data['new_romPassword']."','".$data['new_romCaptain']."')";
+					VALUES (NULL,'".$data['new_d_Name']."','".$data['new_d_Phone']."','".$data['new_d_LowPrice']."','".$data['new_d_HighPrice']."', '".$data['new_d_OpenTime']."','".$data['new_d_CloseTime']."', '".$data['new_d_Address']."', '".$data['new_d_Statement']."', '".$data['new_d_CrateUser']."', '$datetime')";
         case "Select":
             return "SELECT * FROM jky_delicacies				
-					ORDER BY romId DESC";
+					ORDER BY d_No DESC";
         case "Update":
-            return "UPDATE jky_delicacies
-					SET romTitle='".$data['new_romTitle']."',romPassword='".$data['new_romPassword']."'
-				 	WHERE romId='".$data['new_romId']."'";
+            return;
         case "Delete":
             return;
         }            
     }
     
-    pubic function getSQLDelicaciesHistory($data){
+    public function getSQLDelicaciesHistory($data, $datetime){
         switch ($data['type']){
         case "Insert":
-            return "INSERT INTO jky_delicacies_history (ds_No, ds_DelicaciesNo, ds_Score, ds_Comment, ds_UserId, ds_CreateTime)
-					VALUES (NULL,'".$data['new_ds_DelicaciesNo']."','".$data['new_ds_Scroe']."','".$data['new_ds_Comment']."','".$data['new_ds_UserId']."','datetime')";
+            return "INSERT INTO jky_delicacies_history (dh_No, dh_DelicaciesNo, dh_EatTimeNo, dh_CreateTime)
+					VALUES (NULL,'".$data['new_dh_DelicaciesNo']."','".$data['new_dh_EatTimeNo']."','$datetime')";
+        case "Select":
+            return "SELECT * FROM jky_delicacies				
+					ORDER BY dh_No DESC";
+        case "Update":
+            return;
+        case "Delete":
+            return;
+        }            
+    }
+    
+    public function getSQLDelicaciesScore($data, $datetime){
+        switch ($data['type']){
+        case "Insert":
+            return "INSERT INTO jky_delicacies_score (ds_No, ds_DelicaciesNo, ds_Score, ds_Comment, ds_UserId, ds_CreateTime)
+					VALUES (NULL,'".$data['new_ds_DelicaciesNo']."','".$data['new_ds_Score']."','".$data['new_ds_Comment']."','".$data['new_ds_UserId']."','$datetime')";
+        case "Select":
+            return "SELECT * FROM jky_delicacies_score				
+					ORDER BY ds_No DESC";
+        case "Update":
+            return;
+        case "Delete":
+            return;
+        }            
+    }
+    
+    public function getSQLRoom($data, $datetime){
+        switch ($data['type']){
+        case "Insert":
+            return "INSERT INTO shufeng_jioukaoyao.jky_room (`r_No`, `r_UserId`, `r_DelicaciesNo`, `r_EatTimeNo`, `r_Counter`, `r_CreateTime`) 
+            		VALUES (NULL, '".$data['new_r_UserId']."', '".$data['new_r_DelicaiesNo']."', '".$data['new_r_EatTimeNo']."', '".$data['new_r_Counter']."', '$datetime')";
+        case "Select":
+            return "SELECT * FROM shufeng_jioukaoyao.jky_room			
+					ORDER BY r_No DESC";
+        case "Update":
+            return;
+        case "Delete":
+            return;
+        }            
+    }
+    
+    public function getSQLRoomChoiceDelicacies($data, $datetime){
+        switch ($data['type']){
+        case "Insert":
+            return "INSERT INTO shufeng_jioukaoyao.jky_room_choice_delicacies (`rcd_No`, `rcd_RoomNo`, `rcd_UserId`, `rcd_DelicaciesNo`, `rcd_CreateTime`) 
+            		VALUES (NULL, '".$data['new_rcd_RoomNo']."', '".$data['new_rcd_UserId']."','".$data['new_rcd_DelicaiesNo']."', '$datetime')";
+        case "Select":
+            return "SELECT * FROM shufeng_jioukaoyao.jky_room_choice_delicacies			
+					ORDER BY rcd_No DESC";
+        case "Update":
+            return;
+        case "Delete":
+            return;
+        }            
+    }
+    
+    public function getSQLRoomChoiceEattime($data, $datetime){
+        switch ($data['type']){
+        case "Insert":
+            return "INSERT INTO shufeng_jioukaoyao.jky_room_choice_eattime (`rce_No`, `rce_RoomNo`, `rce_UserId`, `rce_EatTime`, `rce_CreateTime`) 
+            		VALUES (NULL, '".$data['new_rce_RoomNo']."', '".$data['new_rce_UserId']."','".$data['new_rce_EatTime']."', '$datetime')";
+        case "Select":
+            return "SELECT * FROM shufeng_jioukaoyao.jky_room_choice_eattime		
+					ORDER BY rce_No DESC";
+        case "Update":
+            return;
+        case "Delete":
+            return;
+        }            
+    }
+    
+    public function getSQLRoomChoicePoint($data, $datetime){
+        switch ($data['type']){
+        case "Insert":
+            return "INSERT INTO shufeng_jioukaoyao.jky_room_choice_eattime (`rcp_No`, `rcp_UserId`, `rcp_RoomNo`, `rcp_DelicaciesNo`, `rcp_EatTimeNo`, `rcp_CreateTime`) 
+            		VALUES (NULL, '".$data['new_rcp_UserId']."', '".$data['new_rcp_RoomId']."',  '".$data['new_rcp_DelicaciesNo']."','".$data['new_rcp_EatTimeNo']."', '$datetime')";
+        case "Select":
+            return "SELECT * FROM shufeng_jioukaoyao.jky_room_choice_point		
+					ORDER BY rcp_No DESC";
+        case "Update":
+            return;
+        case "Delete":
+            return;
+        }            
+    }
+    
+    public function getSQLUser($data, $datetime){
+        switch ($data['type']){
+        case "Insert":
+            return "INSERT INTO shufeng_jioukaoyao.jky_user (`u_Id`, `u_Phone`, `u_Name`, `u_Password`, `u_Picture`, `u_CreateTime`) 
+            		VALUES (NULL, '".$data['new_u_Phone']."', '".$data['new_u_Name']."', '".$data['new_u_Password']."', NULL, '$datetime')";
+        case "Select":
+            return "SELECT u_Id, u_Phone, u_Name, u_CreateTime FROM shufeng_jioukaoyao.jky_user 
+            		ORDER BY u_Id DESC";
+        case "Update":
+            return;
+        case "Delete":
+            return;
+        }            
+    }
+    
+    public function getSQLUserFriend($data, $datetime){
+        switch ($data['type']){
+        case "Insert":
+            return;
         case "Select":
             return;
         case "Update":
@@ -32,220 +134,25 @@ class SQLInstruction{
         }            
     }
     
-    pubic function getSQLDelicaciesScore($data){
+    public function getSQLUserStatus($data, $datetime){
         switch ($data['type']){
         case "Insert":
-            return;
+            return "INSERT INTO shufeng_jioukaoyao.jky_user_status (`us_No`, `us_RoomId`, `us_UserId`, `us_Status`) 
+            		VALUES (NULL, '".$data['new_us_RoomId']."', '".$data['new_us_UserId']."', '1')";
         case "Select":
-            return;
+            return "SELECT* FROM shufeng_jioukaoyao.jky_user_status 
+            		ORDER BY us_No DESC";
         case "Update":
-            return;
+            return "UPDATE shufeng_jioukaoyao.jky_user_status 
+					SET us_Status='".$data['new_us_Status']."'
+				 	WHERE us_UserId='".$data['new_us_UserId']."'";
         case "Delete":
             return;
         }            
     }
-    
-    pubic function getSQLRoom($data){
-        switch ($data['type']){
-        case "Insert":
-            return;
-        case "Select":
-            return;
-        case "Update":
-            return;
-        case "Delete":
-            return;
-        }            
-    }
-    
-    pubic function getSQLRoomChoiceDelicacies($data){
-        switch ($data['type']){
-        case "Insert":
-            return;
-        case "Select":
-            return;
-        case "Update":
-            return;
-        case "Delete":
-            return;
-        }            
-    }
-    
-    pubic function getSQLRoomChoiceEattime($data){
-        switch ($data['type']){
-        case "Insert":
-            return;
-        case "Select":
-            return;
-        case "Update":
-            return;
-        case "Delete":
-            return;
-        }            
-    }
-    
-    pubic function getSQLRoomChoicePoint($data){
-        switch ($data['type']){
-        case "Insert":
-            return;
-        case "Select":
-            return;
-        case "Update":
-            return;
-        case "Delete":
-            return;
-        }            
-    }
-    
-    pubic function getSQLUser($data){
-        switch ($data['type']){
-        case "Insert":
-            return;
-        case "Select":
-            return;
-        case "Update":
-            return;
-        case "Delete":
-            return;
-        }            
-    }
-    
-    pubic function getSQLUserFriend($data){
-        switch ($data['type']){
-        case "Insert":
-            return;
-        case "Select":
-            return;
-        case "Update":
-            return;
-        case "Delete":
-            return;
-        }            
-    }
-    
+
     /*
-    //
-	public function getSQLIdentifyInfo($data){
-		return "SELECT * FROM tp_member				
-				WHERE memUser='".$data['new_memUser']."' AND memPassword='".$data['new_memPassword']."'";
-	}
-
-	// SQL use for Room
-	public function getSQLRoom($data, $index){
-		
-		// 選擇指令動作
-		switch ($data['type']){
-		case "Insert":
-			return "INSERT INTO tp_room (romId, romTitle, romType, romPassword, romCaptain)
-					VALUES (NULL,'".$data['new_romTitle']."','1','".$data['new_romPassword']."','".$data['new_romCaptain']."')";			
-		case "Select":
-			return "SELECT * FROM tp_room				
-					ORDER BY romId DESC";						
-		case "Update":
-			return "UPDATE tp_room
-					SET romTitle='".$data['new_romTitle']."',romPassword='".$data['new_romPassword']."'
-				 	WHERE romId='".$data['new_romId']."'";			
-		case "Delete":
-			switch ($index){
-			case "1":
-				return "DELETE FROM tp_room_object
-						WHERE romId='".$data['new_romId']."'";
-			case "2":
-				return "DELETE FROM tp_room_message
-						WHERE mTargetRoom='".$data['new_romId']."'";
-			case "3":
-				return  "DELETE FROM tp_room
-						 WHERE romId='".$data['new_romId']."'";
-			case "4":				
-				return  "DELETE FROM tp_member_position
-						 WHERE romId='".$data['new_romId']."'";
-			}
-		case "Update_Profile":
-			switch ($index){
-			case "1":
-				return "UPDATE tp_member
-						SET tp_member.memName='".$data['new_memName']."'
-						WHERE tp_member.memUser='".$data['new_memUser']."'";
-			case "2":
-				return "UPDATE tp_member_position
-						SET tp_member_position.pType='".$data['new_pType']."'
-						WHERE tp_member.memUser='".$data['new_memUser']."'";
-			}
-		default:
-			return;
-		}
-		
-	}	
-
-	public function getSQLRoomMessage($data){
-
-		switch ($data['type']){
-		case "Insert":
-			// Get Local time
-			require_once('_Default.php');
-			$lib = new LocalLibrary();
-			$datetime = $lib->getTime();
-			return "INSERT INTO tp_room_message (no, memUser, mTargetRoom, mType, mMessage, mSendTime)
-					VALUES (NULL,'".$data['new_memUser']."','".$data['new_mTargetRoom']."','".$data['new_mType']."','".$data['new_mMessage']."','$datetime')";
-		case "Select":
-			return "SELECT tp_room_message.*,tp_member.memName FROM tp_member join tp_room_message
-					WHERE tp_room_message.mTargetRoom='".$data['new_mTargetRoom']."' AND tp_room_message.memUser=tp_member.memUser
-					ORDER BY tp_room_message.mSendTime ASC";
-		default:
-			return;
-		}
-	}
-
-	public function getSQLRoomObject($data){
-		switch ($data['type']){
-		case "Insert":
-			// Get Local time
-			require_once('_Default.php');
-			$lib = new LocalLibrary();
-			$datetime = $lib->getTime();
-			return "INSERT INTO tp_room_object (no, romId, memUser, oLng, oLat, oType, oDescription, oTime)
-					VALUES (NULL,'".$data['new_romId']."','".$data['new_memUser']."','".$data['new_oLng']."','".$data['new_oLat']."','".$data['new_oType']."', '".$data['new_oDescription']."', '$datetime')";
-		case "Select":
-			return "SELECT no, romId, memUser, oLng, oLat, oType, oDescription, oTime FROM tp_room_object
-					WHERE romId='".$data['new_romId']."'
-					ORDER BY no DESC";
-		case "Delete":
-			return "DELETE FROM tp_room_object
-					WHERE no='".$data['new_no']."'";
-		default:
-		
-		}
-	}
-
-	public function getSQLMember($data){
-
-		switch ($data['type']){
-		case "Insert":
-			// Get Local time
-			require_once('_Default.php');
-			$lib = new LocalLibrary();
-			$datetime = $lib->getTime();
-			return "INSERT INTO tp_member (memId, memUser, memPassword, memName, memType, memLimit, memRegisterTime)
-					VALUES (NULL,'".$data['new_memUser']."','".$data['new_memPassword']."','".$data['new_memName']."','0','1','$datetime')";
-		case "Select":
-			return "SELECT tp_member.* From tp_member				
-					WHERE tp_member.memUser='".$data['new_memUser']."'";
-		case "Update":
-			return "UPDATE tp_member
-					SET memName='".$data['new_memName']."'
-					WHERE memUser='".$data['new_memUser']."'";
-		case "Delete":
-			return "DELETE FROM tp_member
-					WHERE memUser='".$data['new_memUser']."'";
-		case "Update_Type":
-			return "UPDATE tp_member
-					SET memType='".$data['new_memType']."'
-					WHERE memUser='".$data['new_memUser']."'";
-		default:
-			return;
-		}
-
-	}
+ 
 
 	public function getSQLMemberPosition($data){
 		
