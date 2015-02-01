@@ -68,7 +68,8 @@ class SQLInstruction{
             		VALUES (NULL, '".$data['new_rcd_RoomNo']."', '".$data['new_rcd_UserId']."','".$data['new_rcd_DelicaiesNo']."', '$datetime')";
         case "Select":
             return "SELECT * FROM shufeng_jioukaoyao.jky_room_choice_delicacies			
-					ORDER BY rcd_No DESC";
+					WHERE rcd_RoomNo='".$data['new_rcd_RoomNo']."'
+                    ORDER BY rcd_No DESC";
         case "Update":
             return;
         case "Delete":
@@ -83,7 +84,8 @@ class SQLInstruction{
             		VALUES (NULL, '".$data['new_rce_RoomNo']."', '".$data['new_rce_UserId']."','".$data['new_rce_EatTime']."', '$datetime')";
         case "Select":
             return "SELECT * FROM shufeng_jioukaoyao.jky_room_choice_eattime		
-					ORDER BY rce_No DESC";
+					WHERE rce_RoomNo='".$data['new_rce_RoomNo']."'
+                    ORDER BY rce_No DESC";
         case "Update":
             return;
         case "Delete":
@@ -97,8 +99,9 @@ class SQLInstruction{
             return "INSERT INTO shufeng_jioukaoyao.jky_room_choice_eattime (`rcp_No`, `rcp_UserId`, `rcp_RoomNo`, `rcp_DelicaciesNo`, `rcp_EatTimeNo`, `rcp_CreateTime`) 
             		VALUES (NULL, '".$data['new_rcp_UserId']."', '".$data['new_rcp_RoomId']."',  '".$data['new_rcp_DelicaciesNo']."','".$data['new_rcp_EatTimeNo']."', '$datetime')";
         case "Select":
-            return "SELECT * FROM shufeng_jioukaoyao.jky_room_choice_point		
-					ORDER BY rcp_No DESC";
+            return "SELECT rcp_DelicaciesNo, SUM(rcp_DelicaciesNo) FROM shufeng_jioukaoyao.jky_room_choice_point		
+					WHERE rcp_RoomNo='".$data['new_rcp_RoomNo']."'
+                    GROUP BY rcp_DelicaciesNo";
         case "Update":
             return;
         case "Delete":
@@ -107,18 +110,26 @@ class SQLInstruction{
     }
     
     public function getSQLUser($data, $datetime){
-        switch ($data['type']){
-        case "Insert":
-            return "INSERT INTO shufeng_jioukaoyao.jky_user (`u_Id`, `u_Phone`, `u_Name`, `u_Password`, `u_Picture`, `u_CreateTime`) 
-            		VALUES (NULL, '".$data['new_u_Phone']."', '".$data['new_u_Name']."', '".$data['new_u_Password']."', NULL, '$datetime')";
-        case "Select":
-            return "SELECT u_Id, u_Phone, u_Name, u_CreateTime FROM shufeng_jioukaoyao.jky_user 
-            		ORDER BY u_Id DESC";
-        case "Update":
-            return;
-        case "Delete":
-            return;
-        }            
+
+        if ($data['method'] == "Identify"){
+            return "SELECT * FROM shufeng_jioukaoyao.jky_user 
+                        WHERE u_Phone='".$data['new_u_Phone']."'
+                        ORDER BY u_Id DESC";
+        }else{
+            switch ($data['type']){
+            case "Insert":
+                return "INSERT INTO shufeng_jioukaoyao.jky_user (`u_Id`, `u_Phone`, `u_Name`, `u_Password`, `u_Picture`, `u_CreateTime`) 
+                        VALUES (NULL, '".$data['new_u_Phone']."', '".$data['new_u_Name']."', '".$data['new_u_Password']."', NULL, '$datetime')";
+            case "Select":                
+                return "SELECT * FROM shufeng_jioukaoyao.jky_user 
+                    ORDER BY u_Id DESC";          
+            case "Update":
+                return;
+            case "Delete":
+                return;
+            }         
+        }
+                 
     }
     
     public function getSQLUserFriend($data, $datetime){
@@ -141,6 +152,7 @@ class SQLInstruction{
             		VALUES (NULL, '".$data['new_us_RoomId']."', '".$data['new_us_UserId']."', '1')";
         case "Select":
             return "SELECT* FROM shufeng_jioukaoyao.jky_user_status 
+            		WHERE us_UserId='".$data['new_us_UserId']."'
             		ORDER BY us_No DESC";
         case "Update":
             return "UPDATE shufeng_jioukaoyao.jky_user_status 
@@ -184,5 +196,4 @@ class SQLInstruction{
     
 */
 }
-
 ?>

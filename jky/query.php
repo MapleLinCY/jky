@@ -171,6 +171,7 @@
                                     $value[$index] = array(
                                         "u_Id" => $arr[$index]['u_Id'],
                                         "u_Phone" => $arr[$index]['u_Phone'],
+                                        "u_Password" => $arr[$index]['u_Password'],
                                         "u_Name" => $arr[$index]['u_Name'],
                                         "u_CreateTime" => $arr[$index]['u_CreateTime']
                                     );
