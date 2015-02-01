@@ -4,8 +4,12 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="14"
         android:targetSdkVersion="21" />
 
     <application
@@ -14,7 +18,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".StartActivity"
+            android:name=".Activity_login"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,20 +27,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SetActivity"
+            android:name=".Activity_Set"
             android:label="@string/title_activity_date" >
         </activity>
         <activity
-            android:name=".ChooseActivity"
+            android:name=".Activity_Choose"
             android:label="@string/title_activity_choose" >
         </activity>
         <activity
-            android:name=".ResultsActivity"
+            android:name=".Activity_Results"
             android:label="@string/title_activity_results" >
         </activity>
         <activity
-            android:name=".FriendActivity"
+            android:name=".Activity_Friend"
             android:label="@string/title_activity_friend" >
+        </activity>
+        <activity
+            android:name=".Activity_Register"
+            android:label="@string/title_activity_register" >
         </activity>
     </application>
 
